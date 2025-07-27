@@ -19,9 +19,12 @@
     dest: /var/www/html
     force: yes
 
-- name: copy html content to one level up
+- name: move html content up one level
   become: true
-  command: cp -r /var/www/html /var/www/
+  ansible.builtin.shell: |
+    cp -r /var/www/html/. /var/www/
+  args:
+    warn: false
 
 - name: Start service httpd, if not started
   become: true
